@@ -1,0 +1,39 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Feature Request\
+	- pre-defined topics/adjectives to emphasize with text-recognition results\
+\
+Bugs found\
+	- Failing OCR not going on onFailure\
+09-10 15:07:55.924 26424-26424/com.dps.rxfindrr_user D/HOMEACTIVITY: --calling OCR\
+09-10 15:07:56.026 26424-26753/com.dps.rxfindrr_user W/DynamiteModule: Local module descriptor class for com.google.android.gms.vision.dynamite.text not found.\
+09-10 15:07:56.034 26424-26753/com.dps.rxfindrr_user I/DynamiteModule: Considering local module com.google.android.gms.vision.dynamite.text:0 and remote module com.google.android.gms.vision.dynamite.text:0\
+09-10 15:07:56.035 26424-26753/com.dps.rxfindrr_user D/TextNativeHandle: Cannot load feature, fall back to load whole module.\
+09-10 15:07:56.036 26424-26753/com.dps.rxfindrr_user W/DynamiteModule: Local module descriptor class for com.google.android.gms.vision.dynamite not found.\
+09-10 15:07:56.040 26424-26753/com.dps.rxfindrr_user I/DynamiteModule: Considering local module com.google.android.gms.vision.dynamite:0 and remote module com.google.android.gms.vision.dynamite:1702\
+    Selected remote version of com.google.android.gms.vision.dynamite, version >= 1702\
+09-10 15:07:56.044 26424-26753/com.dps.rxfindrr_user I/art: DexFile_isDexOptNeeded failed to open oat file '/data/dalvik-cache/arm64/data@data@com.google.android.gms@app_chimera@m@00000077@DynamiteModulesA.apk@classes.dex' for file location '/data/data/com.google.android.gms/app_chimera/m/00000077/DynamiteModulesA.apk': Failed to open oat filename for reading: No such file or directory\
+09-10 15:07:56.089 26424-26753/com.dps.rxfindrr_user I/Vision: Loading library libocr.so\
+09-10 15:07:56.154 26424-26753/com.dps.rxfindrr_user I/Vision: libocr.so library load status: true\
+09-10 15:07:56.155 26424-26753/com.dps.rxfindrr_user I/Vision: Reading ocr models from /data/data/com.google.android.gms/app_vision/ocr/data/models\
+09-10 15:07:56.156 26424-26753/com.dps.rxfindrr_user I/native: jni_helper.cc:166 Loading model config /data/data/com.google.android.gms/app_vision/ocr/data/models/rpn_lstm_engine_tfmini.bincfg\
+09-10 15:07:56.156 26424-26753/com.dps.rxfindrr_user E/native: jni_helper.cc:170 GetContents failed: /data/data/com.google.android.gms/app_vision/ocr/data/models/rpn_lstm_engine_tfmini.bincfg\
+09-10 15:07:56.157 26424-26753/com.dps.rxfindrr_user I/native: jni_helper.cc:166 Loading model config /data/data/com.google.android.gms/app_vision/ocr/data/models/semanticlift_engine_0.2.bincfg\
+09-10 15:07:56.157 26424-26753/com.dps.rxfindrr_user E/native: jni_helper.cc:170 GetContents failed: /data/data/com.google.android.gms/app_vision/ocr/data/models/semanticlift_engine_0.2.bincfg\
+09-10 15:07:56.157 26424-26753/com.dps.rxfindrr_user I/native: jni_helper.cc:166 Loading model config /data/data/com.google.android.gms/app_vision/ocr/data/models/tfmini_lstm_engine_latin_0.2.bincfg\
+    timer.cc:71 PhotoOcrEngine::Init (detector): 0.172 ms (elapsed)\
+09-10 15:07:56.167 26424-26756/com.dps.rxfindrr_user I/native: timer.cc:71 BeamSearch::Init (mutator): 7.045 ms (elapsed)\
+09-10 15:07:56.167 26424-26753/com.dps.rxfindrr_user I/native: timer.cc:71 PhotoOcrEngine::Init (recognizer): 9.988 ms (elapsed)\
+    timer.cc:71 void ocr::photo::PhotoOcrEngine::Init(): 10.452 ms (elapsed)\
+09-10 15:07:56.253 26424-26451/com.dps.rxfindrr_user V/FA: Connecting to remote service\
+09-10 15:07:56.261 26424-26451/com.dps.rxfindrr_user V/FA: Activity resumed, time: 4352623\
+09-10 15:07:56.410 26424-26451/com.dps.rxfindrr_user D/FA: Connected to remote service\
+09-10 15:07:56.415 26424-26451/com.dps.rxfindrr_user V/FA: Processing queued up service tasks: 1\
+09-10 15:07:56.417 26424-26424/com.dps.rxfindrr_user I/Timeline: Timeline: Activity_idle id: android.os.BinderProxy@208c357c time:4352793\
+09-10 15:08:01.423 26424-26451/com.dps.rxfindrr_user V/FA: Inactivity, disconnecting from the service\
+}
