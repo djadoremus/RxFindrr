@@ -113,7 +113,7 @@ public class BatchSearch extends AppCompatActivity {
                         myIntent.putExtra("genericname", brName);
                         myIntent.putExtra("quantity", quan);
                         startActivity(myIntent);
-                        
+
                     }
                 }
         );
