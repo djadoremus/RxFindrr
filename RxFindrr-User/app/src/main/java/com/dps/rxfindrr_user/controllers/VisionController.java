@@ -90,34 +90,6 @@ public class VisionController {
                     }
                 }
             });
-//                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-//            @Override
-//            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-//            StringBuilder sb = new StringBuilder();
-//            for (FirebaseVisionText.TextBlock textBlock : firebaseVisionText.getTextBlocks()) {
-//                Log.d(TAG, "--block" + textBlock.getText());
-//                sb.append(textBlock.getText()).append("\n");
-//                for (FirebaseVisionText.Line line : textBlock.getLines()) {
-//                    Log.d(TAG, "--line" + line.getText());
-////                            sb.append(line.getText()).append("\n");
-//                    for (FirebaseVisionText.Element element : line.getElements()) {
-//                        Log.d(TAG, "--element " + element.getText());
-////                                sb.append(element.getText()).append("\n");
-//                    }
-//                }
-//            }
-//            String result = sb.toString();
-//            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-//            Log.d(TAG, result);
-//            //return to home activity with text results
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//            Log.d(TAG, "--failure");
-//            Log.e(TAG, "--failure");
-//            Log.e(TAG, e.getLocalizedMessage());
-//            }
-//        });
     }
+
 }

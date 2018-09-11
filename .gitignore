@@ -41,6 +41,7 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+.idea/caches/build_file_checksums.ser
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -68,6 +69,7 @@ fastlane/readme.md
 .DS_Store
 
 # Firebase
+rxfindrr-firebase-adminsdk-eef9b-aaa3312126.json
 
 # npm
 node_modules/
