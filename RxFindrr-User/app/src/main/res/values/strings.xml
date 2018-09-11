@@ -8,4 +8,9 @@
     <string name="drugstore">Drugstore</string>
     <string name="address">Address</string>
     <string name="gotostore">Go to store</string>
+    <string name="title_activity_camera2">Camera2Activity</string>
+    <string name="picture">Take Picture</string>
+    <string name="camera_error">Camera Error</string>
+    <string name="intro_message">Intro Message</string>
+    <string name="request_permission">Request Permission</string>
 </resources>

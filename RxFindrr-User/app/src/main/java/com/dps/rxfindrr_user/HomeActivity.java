@@ -1,16 +1,28 @@
 package com.dps.rxfindrr_user;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.media.Image;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseIntArray;
+import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dps.rxfindrr_user.controllers.VisionController;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,10 +33,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
+import com.google.firebase.ml.vision.document.FirebaseVisionDocumentText;
+import com.google.firebase.ml.vision.document.FirebaseVisionDocumentTextRecognizer;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+
+import java.util.List;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -35,6 +56,10 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private FloatingActionsMenu fam;
 
     private Integer REQUEST_IMAGE_CAPTURE = 1;
+
+    private FirebaseVisionBarcodeDetectorOptions options;
+
+    private VisionController visionController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +101,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d(TAG, "--list");
             }
         });
+
+        options = new FirebaseVisionBarcodeDetectorOptions.Builder()
+                .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_ALL_FORMATS).build();
     }
 
 
@@ -106,36 +134,63 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d(TAG, "--activity result OK");
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+
             FirebaseVisionImage fvi = FirebaseVisionImage.fromBitmap(imageBitmap);
 
-            Log.d(TAG, "--calling OCR");
-            FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
-            textRecognizer.processImage(fvi).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                @Override
-                public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                    StringBuilder sb = new StringBuilder();
-                    for (FirebaseVisionText.TextBlock textBlock: firebaseVisionText.getTextBlocks()){
-                        Log.d(TAG, "--block" + textBlock.getText());
-                        for (FirebaseVisionText.Line line : textBlock.getLines()){
-                            Log.d(TAG, "--line" + line.getText());
-                            for (FirebaseVisionText.Element element : line.getElements()){
-                                Log.d(TAG, "--element " + element.getText());
-                                sb.append(element.getText()).append("\n");
-                            }
-                        }
-                    }
-                    String result = sb.toString();
-                    Toast.makeText(HomeActivity.this, result, Toast.LENGTH_LONG).show();
-                    Log.d(TAG, result);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "--failure");
-                    Log.e(TAG, "--failure");
-                    Log.e(TAG, e.getLocalizedMessage());
-                }
-            });
+            Log.d(TAG, "--calling OCR/QR");
+            visionController = new VisionController(this.getApplicationContext(), fvi);
+            visionController.decodeQR(options);
         }
     }
-}
+
+    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
+    static {
+        ORIENTATIONS.append(Surface.ROTATION_0, 90);
+        ORIENTATIONS.append(Surface.ROTATION_90, 0);
+        ORIENTATIONS.append(Surface.ROTATION_180, 270);
+        ORIENTATIONS.append(Surface.ROTATION_270, 180);
+    }
+
+    /**
+     * Get the angle by which an image must be rotated given the device's current
+     * orientation.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private int getRotationCompensation(String cameraId, Activity activity, Context context)
+            throws CameraAccessException {
+        // Get the device's current rotation relative to its "native" orientation.
+        // Then, from the ORIENTATIONS table, look up the angle the image must be
+        // rotated to compensate for the device's rotation.
+        int deviceRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int rotationCompensation = ORIENTATIONS.get(deviceRotation);
+
+        // On most devices, the sensor orientation is 90 degrees, but for some
+        // devices it is 270 degrees. For devices with a sensor orientation of
+        // 270, rotate the image an additional 180 ((270 + 270) % 360) degrees.
+        CameraManager cameraManager = (CameraManager) context.getSystemService(CAMERA_SERVICE);
+        int sensorOrientation = cameraManager
+                .getCameraCharacteristics(cameraId)
+                .get(CameraCharacteristics.SENSOR_ORIENTATION);
+        rotationCompensation = (rotationCompensation + sensorOrientation + 270) % 360;
+
+        // Return the corresponding FirebaseVisionImageMetadata rotation value.
+        int result;
+        switch (rotationCompensation) {
+            case 0:
+                result = FirebaseVisionImageMetadata.ROTATION_0;
+                break;
+            case 90:
+                result = FirebaseVisionImageMetadata.ROTATION_90;
+                break;
+            case 180:
+                result = FirebaseVisionImageMetadata.ROTATION_180;
+                break;
+            case 270:
+                result = FirebaseVisionImageMetadata.ROTATION_270;
+                break;
+            default:
+                result = FirebaseVisionImageMetadata.ROTATION_0;
+                Log.e(TAG, "Bad rotation value: " + rotationCompensation);
+        }
+        return result;
+    }}
