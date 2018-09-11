@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llt_root"
+    android:layout_width="500dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_login"
+    android:padding="5dp"
+    android:splitMotionEvents="false">
+
+    <LinearLayout
+        android:id="@+id/llt_titleHolder"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#253a84"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/lbl_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Title"
+            android:textColor="#FFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llt_messageHolder"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/llt_titleHolder"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="55dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="55dp">
+
+        <TextView
+            android:id="@+id/lbl_dialog_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Message here..."
+            android:textColor="#000"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llt_buttonHolder"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/llt_messageHolder"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:splitMotionEvents="false">
+
+        <TextView
+            android:id="@+id/btn_dialog_positive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="OK"
+            android:textColor="#FFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btn_dialog_negative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="CANCEL"
+            android:textColor="#FFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
