@@ -118,10 +118,17 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "--camera");
+//                Intent cameraActivity = new Intent(HomeActivity.this, CameraKitActivity.class);
+//                startActivity(cameraActivity);
+                Intent cameraActivity = new Intent(HomeActivity.this, CameraKitActivity.class);
+                startActivityForResult(cameraActivity, 1500);
+
+                /*
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePicture.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
                 }
+                */
             }
         });
         fabList.setOnClickListener(new View.OnClickListener() {
@@ -236,6 +243,12 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (RESULT_OK == resultCode && 1500 == requestCode){
+            if (data.hasExtra("selectedLine")){
+                etSearch.setText(data.getExtras().getString("selectedLine"));
+            }
+        }
+        /*
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode==RESULT_OK){
             Log.d(TAG, "--activity result OK");
             Bundle extras = data.getExtras();
@@ -247,6 +260,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             visionController = new VisionController(this.getApplicationContext(), fvi);
             visionController.decodeQR(options);
         }
+        */
     }
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -298,6 +312,8 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 result = FirebaseVisionImageMetadata.ROTATION_0;
                 Log.e(TAG, "Bad rotation value: " + rotationCompensation);
         }
+
+
         return result;
     }
 
@@ -324,6 +340,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
             Data from Firestore will be checked on Maps SDK to get LatLng and placed on a marker
              */
+            String query = etSearch.getText().toString();
         }
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.dps.rxfindrr_user.Camera2ActivityFragment;
+import com.dps.rxfindrr_user.CameraKitActivity;
 import com.dps.rxfindrr_user.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,6 +20,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VisionController {
@@ -79,14 +81,30 @@ public class VisionController {
                 @Override
                 public void onComplete(@NonNull Task<FirebaseVisionText> task) {
                     Log.d(TAG, task.isCanceled() + " | " + task.isComplete() + " | " + task.isSuccessful());
+                    List<String> lines = new ArrayList<>();
                     if (task.isSuccessful()){
                         StringBuilder sb = new StringBuilder();
                         for (FirebaseVisionText.TextBlock block : task.getResult().getTextBlocks()){
                             sb.append(block.getText());
+                            for (FirebaseVisionText.Line line : block.getLines()){
+                                lines.add(line.getText());
+                            }
                         }
                         String result = sb.toString();
                         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "result = " + result);
+
+
+                        String[] saLines = new String[lines.size()];
+                        for (int i=0; i<lines.size(); i++){
+                            saLines[i] = lines.get(i);
+                        }
+
+                        if (context instanceof CameraKitActivity){
+                            Log.d(TAG, "--got instance of context");
+                            ((CameraKitActivity)context).passOCRData(saLines);
+                        }
+
                     }
                 }
             });
