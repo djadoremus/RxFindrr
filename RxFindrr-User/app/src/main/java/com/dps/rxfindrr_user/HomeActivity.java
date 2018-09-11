@@ -22,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -67,6 +69,7 @@ import java.util.List;
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, View.OnClickListener {
 
     private String TAG = "HOMEACTIVITY";
+    private Boolean searchForStore = Boolean.TRUE;
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
@@ -118,17 +121,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "--camera");
-//                Intent cameraActivity = new Intent(HomeActivity.this, CameraKitActivity.class);
-//                startActivity(cameraActivity);
                 Intent cameraActivity = new Intent(HomeActivity.this, CameraKitActivity.class);
                 startActivityForResult(cameraActivity, 1500);
 
-                /*
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePicture.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
-                }
-                */
             }
         });
         fabList.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +137,25 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_ALL_FORMATS).build();
 
         etSearch = findViewById(R.id.id_et_search);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 0){
+                    searchForStore = Boolean.TRUE;
+                }
+            }
+        });
+
         btnSearch = findViewById(R.id.id_btn_search);
         btnSearch.setOnClickListener(this);
     }
@@ -159,11 +173,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-//            mMap.setMyLocationEnabled(true);
-//            mMap.setOnMyLocationButtonClickListener(this);
-//            mMap.setOnMyLocationClickListener(this);
-//        }
 
         Integer interval = 1 * (60 * 1000);
         locationRequest = new LocationRequest();
@@ -196,12 +205,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                MarkerOptions markerOptions = new MarkerOptions();
-//                markerOptions.position(latLng);
-//                markerOptions.title("Current Position");
-//                markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
-//                currentLocationmarker = mMap.addMarker(markerOptions);
-//
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
             }
         }
@@ -248,19 +251,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 etSearch.setText(data.getExtras().getString("selectedLine"));
             }
         }
-        /*
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode==RESULT_OK){
-            Log.d(TAG, "--activity result OK");
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-            FirebaseVisionImage fvi = FirebaseVisionImage.fromBitmap(imageBitmap);
-
-            Log.d(TAG, "--calling OCR/QR");
-            visionController = new VisionController(this.getApplicationContext(), fvi);
-            visionController.decodeQR(options);
-        }
-        */
     }
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -339,6 +329,17 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             drugstores listed on Cloud Firestore
 
             Data from Firestore will be checked on Maps SDK to get LatLng and placed on a marker
+
+            201809111802
+            If user used the Camera OCR, and cleaned out the search query, will search for medicines
+            If text became empty, will default to search for drug stores
+
+            1. Determine if query is searching for Medicine, or Drugstore
+            2. Search Firestore of relevant information
+            3. Place marker for drugstore search
+            4. Call medicine details for medicine search
+            5. ???
+            6. PROFIT!!!
              */
             String query = etSearch.getText().toString();
         }
