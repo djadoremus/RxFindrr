@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+    <ImageView
+        android:id="@+id/l_img_id_qrcode"
+        android:layout_alignParentTop="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+    <ListView
+        android:id="@+id/l_lv_id_prescriptionlist"
+        android:layout_toRightOf="@id/l_img_id_qrcode"
+        android:layout_width="150dp"
+        android:layout_height="150dp"></ListView>
+    <TextView
+        android:id="@+id/l_tv_id_drugstore"
+        android:text="@string/drugstore"
+        android:layout_below="@id/l_img_id_qrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/l_tv_id_address"
+        android:text="@string/address"
+        android:layout_below="@id/l_tv_id_drugstore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_below="@id/l_lv_id_prescriptionlist"
+        android:layout_toRightOf="@id/l_tv_id_drugstore"
+        android:id="@+id/l_tv_id_status"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

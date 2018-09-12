@@ -48,12 +48,17 @@ public class VersionController {
                                 sb.append(barcode.getRawValue());
                             }
                             String result = sb.toString();
-                            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "result = " + result);
 
-                            if (context instanceof CameraKitActivity){
-                                Log.d(TAG, "--got instance of context");
-                                ((CameraKitActivity) context).passOCRData(result);
+                            if (!result.isEmpty()){
+                                Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "result = " + result);
+                                if (context instanceof CameraKitActivity){
+                                    Log.d(TAG, "--got instance of context");
+                                    ((CameraKitActivity) context).passOCRData(result);
+                                }
+                            } else {
+                                Toast.makeText(context, "there might be an error reading the QR Code", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "result = " + result);
                             }
                         }
                     }

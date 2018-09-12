@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="picture">Take Picture</string>
     <string name="title_activity_order_details">OrderDetailsActivity</string>
+    <string name="orderid">Order ID:</string>
+    <string name="drugstore">Drugstore:</string>
+    <string name="address">Address:</string>
+    <string name="gotostore">Go to store</string>
 </resources>

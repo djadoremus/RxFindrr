@@ -130,6 +130,8 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "--list");
+                Intent batchSearchActivity = new Intent(HomeActivity.this, BatchSearch.class);
+                startActivity(batchSearchActivity);
             }
         });
 
@@ -342,6 +344,11 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             6. PROFIT!!!
              */
             String query = etSearch.getText().toString();
+            if (searchForStore){
+
+            } else {
+
+            }
         }
     }
 }

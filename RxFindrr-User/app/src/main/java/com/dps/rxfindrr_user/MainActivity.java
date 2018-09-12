@@ -118,13 +118,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-
-
                             //IntentHere
-//                            startActivity(new Intent(MainActivity.this, ActivityMainMenu.class));
-//                            finish();
-
-
+                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                            finish();
                         }
                     }
                 });
@@ -172,24 +168,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View v) {
 
-
-//                username = edtUsername.getText().toString();
-//
-//                //online
-//                if (Utils.isNetworkAvailable(mContext)) {
-//
-//                    if (edtUsername.getText().length() > 0 && edtPassword.getText().length() > 0) {
-//
-//
-//                        progressDialog = new ProgressDialog(mContext);
-//                        progressDialog.setMessage("Validating user account... Please wait.");
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.show();
-
-                //for model
-//                        UserModel userModel = new UserModel();
-//                        SampleStoreModel sampleStoreModel = new SampleStoreModel(uname);
-
                 username = edtUsername.getText().toString();
                 password = edtPassword.getText().toString();
                 Map<String, Object> newUser = new HashMap<>();
@@ -209,18 +187,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         alertDialog.show();
                     }
                 }
-//                else {
-//
-//                    String title = "Login Error";
-//                    String msg = "There is no internet connection detected. Please check your internet connection and try again.";
-//                    CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
-//                                            CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
-//                    alertDialog.show();
-//                    Utils.animShake(mContext, llt_user);
-//                    Utils.animShake(mContext, llt_registration);
-//                    alertDialog.show();
-//                }
-
 
 // intent here
                 db.collection("login").add(newUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -238,25 +204,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         Toast.makeText(mContext, "failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-//
-//                        progressDialog.dismiss();
-//                    } else {
-//
-//                        String title = "Login Error";
-//                        String msg = "Employee number and/or date of birth are empty.";
-//                        CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
-//                        alertDialog.show();
-//                        Utils.animShake(mContext, llt_user);
-//                        Utils.animShake(mContext, llt_registration);
-//                    }
-//
-//                } else {
-//
-//                    String title = "Login Error";
-//                    String msg = "There is no internet connection detected. Please check your internet connection and try again.";
-//                    CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
-//                    alertDialog.show();
-//                }
             }
         });
 
