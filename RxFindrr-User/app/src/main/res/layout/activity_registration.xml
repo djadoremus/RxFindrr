@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/fragment_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:inputType="none"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="11"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="1234"
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="20"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtFirstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="20"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtMiddlename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Middle Name"
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="20"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtLastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lastname"
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="20"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000"
+            android:textColorHint="#fff"
+            app:met_baseColor="#000"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="20"
+            app:met_primaryColor="#000"
+            app:met_singleLineEllipsis="true" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textViewData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:shadowColor="#000"
+        android:text="SignUp"
+        android:textColor="#fff" />
+</RelativeLayout>
