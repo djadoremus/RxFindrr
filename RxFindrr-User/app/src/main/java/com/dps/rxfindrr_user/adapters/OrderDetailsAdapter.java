@@ -3,8 +3,12 @@ package com.dps.rxfindrr_user.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +28,15 @@ import com.dps.rxfindrr_user.models.PrescriptionMedicine;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import com.google.zxing.*;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import static com.google.zxing.BarcodeFormat.QR_CODE;
+
+//import static com.google.zxing.BarcodeFormat.QR_CODE;
 
 public class OrderDetailsAdapter extends BaseAdapter {
 
@@ -93,6 +106,36 @@ public class OrderDetailsAdapter extends BaseAdapter {
             }
         });
 
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            Integer ivPx = convertDpToPx(150);
+            BitMatrix qrMatrix = qrCodeWriter.encode(order.getUid(), QR_CODE, ivPx, ivPx);
+            int[] pixels = new int[ivPx* ivPx];
+            for (int y = 0; y < ivPx; y++) {
+                for (int x = 0; x < ivPx; x++) {
+                    if (qrMatrix.get(x, y)) {
+                        pixels[y * ivPx + x] = Color.BLACK;
+                    } else {
+                        pixels[y * ivPx + x] = Color.WHITE;
+                    }
+                }
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(ivPx, ivPx, Bitmap.Config.ARGB_8888);
+            bitmap.setPixels(pixels, 0, ivPx, 0, 0, ivPx, ivPx);
+            qrCode.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+        }
+
+
         return vi;
+    }
+
+    private Integer convertDpToPx(Integer dp){
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        Integer px = (int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_PX, dp, displaymetrics );
+
+        return px;
     }
 }

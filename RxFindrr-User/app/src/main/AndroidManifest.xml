@@ -46,6 +46,11 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home">
+        </activity>
+        <activity
+            android:name=".OrderDirectionsActivity"
+            android:label="@string/title_activity_order_directions" />
+        <activity android:name=".OrderCompleteActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
@@ -53,10 +58,6 @@
                 <data android:host="www.google.com" android:scheme="https"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".OrderDirectionsActivity"
-            android:label="@string/title_activity_order_directions" />
-        <activity android:name=".OrderCompleteActivity" />
         <activity
             android:name=".Camera2Activity"
             android:label="@string/title_activity_camera2"
