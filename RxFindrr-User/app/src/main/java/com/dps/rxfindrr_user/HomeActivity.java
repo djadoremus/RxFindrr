@@ -251,6 +251,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         if (RESULT_OK == resultCode && 1500 == requestCode){
             if (data.hasExtra("selectedLine")){
                 etSearch.setText(data.getExtras().getString("selectedLine"));
+                searchForStore = Boolean.FALSE;
             }
         }
     }
@@ -347,7 +348,8 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             if (searchForStore){
 
             } else {
-
+                Intent searchBrandActivity = new Intent(this, SearchBrandActivity.class);
+                startActivity(searchBrandActivity);
             }
         }
     }

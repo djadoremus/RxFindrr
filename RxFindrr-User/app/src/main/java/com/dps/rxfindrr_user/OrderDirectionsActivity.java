@@ -158,7 +158,7 @@ public class OrderDirectionsActivity extends FragmentActivity implements OnMapRe
     public void onClick(View view) {
         if (view.getId() == R.id.id_btn_directionstostore){
         // Create a Uri from an intent string. Use the result to create an Intent.
-        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988"); //<--- change this from data on orderdetailsactivity
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=Watsons+Stamford"); //<--- change this from data on orderdetailsactivity
 
         // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);

@@ -243,6 +243,7 @@
 
 
             <info.hoang8f.widget.FButton
+                android:id="@+id/id_fbtn_cart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"

@@ -23,6 +23,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,6 +53,7 @@
 
         <activity
             android:name=".HomeActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/title_activity_home">
 
         </activity>
@@ -83,7 +85,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <!-- android:windowSoftInputMode="stateHidden|adjustPan" -->
         </activity>
-         <activity android:name=".StoreNameActivity" />
+        <activity android:name=".StoreNameActivity" />
+        <activity android:name=".SearchBrandActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
         <!-- <activity android:name=".StoreNameActivity"></activity> -->
         <!--<activity android:name=".SearchActivity"></activity>-->
     </application>
