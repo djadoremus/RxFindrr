@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
+import com.dps.rxfindrr_user.Model.UserModel;
 import com.dps.rxfindrr_user.Utils.CustomDialog;
 import com.dps.rxfindrr_user.Utils.Utils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -35,6 +38,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient mGoogleApiClient;
     private SignInButton mGoogleBtn;
     Context mContext;
-
+    private AdView mAdView;
+    FirebaseDatabase firebaseDatabase;
     EditText edtUsername, edtPassword;
     Button btnSignIn, btnRegistration;
     String username, password;
@@ -72,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //
 ////Instances
         mAuth = FirebaseAuth.getInstance();
+        // Initialize Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -86,13 +97,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         }).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
 
-        Log.e("MainACtivity", "onCreate: " + "test");
+
+        //AddMob
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         cast();
         onclicks();
 
     }
-
-
 
 
     //Google Codes
@@ -168,40 +182,84 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View v) {
 
-                username = edtUsername.getText().toString();
-                password = edtPassword.getText().toString();
-                Map<String, Object> newUser = new HashMap<>();
+//                username = edtUsername.getText().toString();
+//                password = edtPassword.getText().toString();
+//                Map<String, Object> newUser = new HashMap<>();
+//
+//
+//                newUser.put("username", username);
+//                newUser.put("password", password);
+//                Log.e(TAG, "onClick: " + edtUsername.getText().toString());
+//                Log.e(TAG, "onClick: " + edtPassword.getText().toString());
+//
+//
+//                if (Utils.isNetworkAvailable(mContext)) {
+//                    if (edtUsername.getText().length() > 0 && edtPassword.getText().length() > 0) {
+//                        String title = "Login Error";
+//                        String msg = "Please input username and password.";
+//                        CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
+//                        alertDialog.show();
+//                    }
+//                }
+//
+//// intent here
+//                db.collection("login").add(newUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        String error = e.getMessage();
+//                        Log.e(TAG, "onFailure: " + error);
+//                        Toast.makeText(mContext, "failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
 
-                newUser.put("username", username);
-                newUser.put("password", password);
-                Log.e(TAG, "onClick: " + edtUsername.getText().toString());
-                Log.e(TAG, "onClick: " + edtPassword.getText().toString());
+                Log.e(TAG, "onClick: " + "wtf");
 
-
-                if (Utils.isNetworkAvailable(mContext)) {
-                    if (edtUsername.getText().length() > 0 && edtPassword.getText().length() > 0) {
-                        String title = "Login Error";
-                        String msg = "Please input username and password.";
-                        CustomDialog alertDialog = new CustomDialog(mContext, title, msg);
-                        alertDialog.show();
-                    }
-                }
-
-// intent here
-                db.collection("login").add(newUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                final ProgressDialog mDialog = new ProgressDialog(mContext);
+                mDialog.setMessage("Please waiting...");
+                mDialog.show();
+                final DatabaseReference table_user = firebaseDatabase.getReference("rxfindrr");
+                table_user.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+
+                        //check if user not exist in database
+                        if (dataSnapshot.child(edtUsername.getText().toString()).exists()) {
+
+
+                            //get user information
+                            mDialog.dismiss();
+                            UserModel userModel = dataSnapshot.child(edtUsername.getText().toString()).getValue(UserModel.class);
+
+                            if (userModel.getPassword().equals(edtPassword.getText().toString())) {
+                                Toast.makeText(mContext, "Sign in success !!", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(mContext, HomeActivity.class);
+                                startActivity(intent);
+
+                            } else {
+
+                                Toast.makeText(mContext, "Sign in failed !!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            mDialog.dismiss();
+                            Toast.makeText(mContext, "User not exist in Database", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                        String error = e.getMessage();
-                        Log.e(TAG, "onFailure: " + error);
-                        Toast.makeText(mContext, "failed", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
             }
@@ -210,7 +268,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "regist", Toast.LENGTH_SHORT).show();
+
+                Intent myIntent = new Intent(MainActivity.this, RegistrationActivity.class);
+                MainActivity.this.startActivity(myIntent);
             }
         });
 

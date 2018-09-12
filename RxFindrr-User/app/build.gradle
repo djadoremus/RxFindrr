@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.2'
 
     //other libraries
     implementation 'info.hoang8f:fbutton:1.0.5'

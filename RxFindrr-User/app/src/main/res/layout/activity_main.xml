@@ -20,10 +20,18 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id" />
 
 
         </LinearLayout>
@@ -53,8 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Username"
-                    android:inputType="phone"
-                    android:text="jakebustamante22"
+                    android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000"
                     android:textColorHint="#fff"
@@ -100,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:text="admin1234"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="#000"
                     android:textColorHint="#fff"
