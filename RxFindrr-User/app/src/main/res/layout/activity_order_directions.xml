@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
-            android:text="consectetur adipiscing elit"
+            android:id="@+id/id_btn_directionstostore"
+            android:text="Directions to Drugstore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
