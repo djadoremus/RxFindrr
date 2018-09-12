@@ -83,7 +83,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <!-- android:windowSoftInputMode="stateHidden|adjustPan" -->
         </activity>
-        <!-- <activity android:name=".StoreNameActivity" /> -->
+         <activity android:name=".StoreNameActivity" />
         <!-- <activity android:name=".StoreNameActivity"></activity> -->
         <!--<activity android:name=".SearchActivity"></activity>-->
     </application>

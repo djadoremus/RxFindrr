@@ -1,16 +1,25 @@
 package com.dps.rxfindrr_user;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.dps.rxfindrr_user.Adapter.StoreNameAdapter;
 import com.dps.rxfindrr_user.Model.StoreModel;
 
 import java.util.ArrayList;
 
-public class StoreNameActivity extends AppCompatActivity {
+import info.hoang8f.widget.FButton;
+
+public class StoreNameActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private FButton btnPay;
+    private FButton btnReserve;
+    private FButton btnContinueShopping;
+
     ArrayList<StoreModel> storeList;
     RecyclerView recyclerView;
 
@@ -35,8 +44,29 @@ public class StoreNameActivity extends AppCompatActivity {
         StoreNameAdapter adapter = new StoreNameAdapter (this,storeList);
         recyclerView.setAdapter(adapter);
 
+        btnContinueShopping = findViewById(R.id.id_fbtn_continue);
+        btnPay = findViewById(R.id.id_fbtn_pay);
+        btnReserve = findViewById(R.id.id_fbtn_reserve);
 
+        btnContinueShopping.setOnClickListener(this);
+        btnPay.setOnClickListener(this);
+        btnReserve.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Intent orderCompleteActivity = new Intent(this, OrderCompleteActivity.class);
+        switch (v.getId()){
+            case R.id.id_fbtn_continue:
+                finish();
+                break;
+            case R.id.id_fbtn_pay:
+                startActivity(orderCompleteActivity);
+                break;
+            case R.id.id_fbtn_reserve:
+                startActivity(orderCompleteActivity);
+                break;
+        }
+    }
 }

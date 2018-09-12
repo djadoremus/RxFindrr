@@ -107,8 +107,7 @@ public class BatchSearch extends AppCompatActivity {
 
                         }
 
-                        Intent myIntent = new Intent(BatchSearch.this, OrderCompleteActivity.class);
-                        BatchSearch.this.startActivity(myIntent);
+                        Intent myIntent = new Intent(BatchSearch.this, StoreNameActivity.class);
                         myIntent.putExtra("brandname", genName);
                         myIntent.putExtra("genericname", brName);
                         myIntent.putExtra("quantity", quan);
