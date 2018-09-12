@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".HomeActivity" />
     <LinearLayout
-        android:id="@+id/id_ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -62,11 +62,9 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textInputLayout1">
+                    android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edtDrugsName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Enter Drugstore name"
@@ -82,7 +80,6 @@
 
 
                 <ImageView
-                    android:id="@+id/ivNavigate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"

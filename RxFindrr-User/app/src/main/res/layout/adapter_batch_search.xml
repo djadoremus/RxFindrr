@@ -7,8 +7,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textInputLayout2">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/tvSearchPrescription"
@@ -24,8 +23,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textInputLayout3">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/tvSpecificBrandName"
@@ -43,8 +41,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textInputLayout4">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/Quantity"
